@@ -1,8 +1,8 @@
 import { gql } from 'graphql-request'
 
 export const GET_EPISODES = gql`
-  query GET_EPISODES($name: String!) {
-    episodes(page: null, filter: { name: $name }) {
+  query GET_EPISODES($name: String!, $page: Int) {
+    episodes(page: $page, filter: { name: $name }) {
       info {
         count
         pages

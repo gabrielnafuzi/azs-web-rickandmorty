@@ -7,6 +7,7 @@ import { CardsGrid } from '@/components/bosons/CardsGrid'
 import { EpisodeInfos } from '@/components/molecules/EpisodeInfos'
 import { EpisodeActions } from '@/components/molecules/EpisodeActions'
 import { Spinner } from '@/components/atoms/Spinner'
+import { Pagination } from '@/components/molecules/Pagination'
 
 import { useEpisodes } from '@/hooks/episodes'
 import type { Episode } from '@/types'
@@ -28,30 +29,34 @@ export const EpisodesList = () => {
     history.push(`/episodes/${episodeId}`)
   }
 
-  if (isLoading) return <Spinner />
-
   return (
     <BaseContainer>
-      <div style={{ marginTop: '4rem' }}>
-        {episodes.length ? (
-          <CardsGrid>
-            {episodes.map(episode => (
-              <S.EpisodeCard
-                onClick={() => handleNavigateToEpisode(episode.id)}
-                key={episode.id}>
-                <BaseCard imgSrc={getRandomCharacterImage(episode)}>
-                  <EpisodeInfos episode={episode} />
-                  <EpisodeActions episode={episode} />
-                </BaseCard>
-              </S.EpisodeCard>
-            ))}
-          </CardsGrid>
-        ) : (
-          <S.NoEpisodesMessage>
-            Nenhum episódio encontrado...
-          </S.NoEpisodesMessage>
-        )}
-      </div>
+      <Pagination />
+
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <>
+          {episodes.length ? (
+            <CardsGrid>
+              {episodes.map(episode => (
+                <S.EpisodeCard
+                  onClick={() => handleNavigateToEpisode(episode.id)}
+                  key={episode.id}>
+                  <BaseCard imgSrc={getRandomCharacterImage(episode)}>
+                    <EpisodeInfos episode={episode} />
+                    <EpisodeActions episode={episode} />
+                  </BaseCard>
+                </S.EpisodeCard>
+              ))}
+            </CardsGrid>
+          ) : (
+            <S.NoEpisodesMessage>
+              Nenhum episódio encontrado...
+            </S.NoEpisodesMessage>
+          )}
+        </>
+      )}
     </BaseContainer>
   )
 }

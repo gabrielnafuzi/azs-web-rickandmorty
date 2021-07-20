@@ -7,8 +7,9 @@ import type { Episode, Info } from '@/types'
 
 type EpisodesContextData = {
   episodes: Episode[]
+  paginationInfo: Info
   episode: Episode
-  getEpisodes: (name?: string) => Promise<void>
+  getEpisodes: (page?: number, name?: string) => Promise<void>
   getEpisodeById: (id: number) => Promise<void>
   isLoading: boolean
   isSingleLoading: boolean
@@ -33,22 +34,25 @@ export const EpisodesContext = createContext({} as EpisodesContextData)
 
 const EpisodesProvider = ({ children }: EpisodesProviderProps) => {
   const [episodes, setEpisodes] = useState([] as Episode[])
+  const [paginationInfo, setPaginationInfo] = useState({} as Info)
   const [episode, setEpisode] = useState({} as Episode)
   const [isLoading, setIsLoading] = useState(true)
   const [isSingleLoading, setIsSingleLoading] = useState(true)
 
-  const getEpisodes = async (name = '') => {
+  const getEpisodes = async (page = 1, name = '') => {
     try {
       setIsLoading(true)
 
       const { episodes } = await client.request<GetEpisodesResponse>(
         GET_EPISODES,
         {
+          page,
           name
         }
       )
 
       setEpisodes(episodes.results)
+      setPaginationInfo(episodes.info)
     } catch (e) {
       setEpisodes([])
 
@@ -84,6 +88,7 @@ const EpisodesProvider = ({ children }: EpisodesProviderProps) => {
     <EpisodesContext.Provider
       value={{
         episodes,
+        paginationInfo,
         episode,
         getEpisodes,
         getEpisodeById,
