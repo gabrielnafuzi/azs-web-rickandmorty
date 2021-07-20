@@ -12,7 +12,7 @@ export const Search = () => {
 
   const getEpisodeDebounced = useCallback(
     debounce(([searchVal]: string) => {
-      getEpisodes(searchVal)
+      getEpisodes({ name: searchVal })
     }, 500),
     []
   )

@@ -4,14 +4,12 @@ import { useEpisodes } from '@/hooks/episodes'
 import * as S from './styles'
 
 export const Pagination = () => {
-  const [currentPage, setCurrentPage] = useState(1)
-  const { paginationInfo, getEpisodes } = useEpisodes()
+  const { paginationInfo, getEpisodes, currentPage } = useEpisodes()
 
   const handlePaginate = (page: number | null) => {
     if (page == null || page === currentPage) return
 
-    getEpisodes(page)
-    setCurrentPage(page)
+    getEpisodes({ page })
   }
 
   return (

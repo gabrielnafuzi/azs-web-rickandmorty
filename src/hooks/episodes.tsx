@@ -9,10 +9,11 @@ type EpisodesContextData = {
   episodes: Episode[]
   paginationInfo: Info
   episode: Episode
-  getEpisodes: (page?: number, name?: string) => Promise<void>
+  getEpisodes: (payload?: GetEpisodeParams) => Promise<void>
   getEpisodeById: (id: number) => Promise<void>
   isLoading: boolean
   isSingleLoading: boolean
+  currentPage: number
 }
 
 type EpisodesProviderProps = {
@@ -24,6 +25,11 @@ type GetEpisodesResponse = {
     info: Info
     results: Episode[]
   }
+}
+
+type GetEpisodeParams = {
+  page?: number
+  name?: string
 }
 
 type GetEpisodeByIdResponse = {
@@ -38,8 +44,12 @@ const EpisodesProvider = ({ children }: EpisodesProviderProps) => {
   const [episode, setEpisode] = useState({} as Episode)
   const [isLoading, setIsLoading] = useState(true)
   const [isSingleLoading, setIsSingleLoading] = useState(true)
+  const [currentPage, setCurrentPage] = useState(1)
 
-  const getEpisodes = async (page = 1, name = '') => {
+  const getEpisodes = async ({
+    name = '',
+    page = currentPage
+  }: GetEpisodeParams = {}) => {
     try {
       setIsLoading(true)
 
@@ -53,6 +63,7 @@ const EpisodesProvider = ({ children }: EpisodesProviderProps) => {
 
       setEpisodes(episodes.results)
       setPaginationInfo(episodes.info)
+      setCurrentPage(page)
     } catch (e) {
       setEpisodes([])
 
@@ -93,7 +104,8 @@ const EpisodesProvider = ({ children }: EpisodesProviderProps) => {
         getEpisodes,
         getEpisodeById,
         isLoading,
-        isSingleLoading
+        isSingleLoading,
+        currentPage
       }}>
       {children}
     </EpisodesContext.Provider>
