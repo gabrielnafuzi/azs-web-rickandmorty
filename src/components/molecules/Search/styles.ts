@@ -5,13 +5,19 @@ export const Container = styled.form`
   width: 60rem;
   height: 5rem;
   background-color: var(--background);
+  border: 2px solid transparent;
   border-radius: var(--roundness);
-  padding: 1.5rem;
+  padding: 1rem;
   display: flex;
 
   align-items: center;
 
+  &:focus-within {
+    border: 2px solid var(--green);
+  }
+
   input {
+    padding: 0.4rem;
     width: 80%;
     height: 100%;
     font-size: 2.2rem;

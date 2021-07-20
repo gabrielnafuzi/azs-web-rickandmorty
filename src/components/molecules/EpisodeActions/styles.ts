@@ -13,8 +13,9 @@ export const Container = styled.div`
 export const ViewedInputWrapper = styled.div`
   display: flex;
   align-items: center;
+  width: max-content;
 
-  > label {
+  > span {
     font-weight: 600;
     font-size: 1.6rem;
     margin-left: 0.6rem;

@@ -23,40 +23,60 @@ export const EpisodeActions = ({ episode }: Props) => {
     vieweds.some(viewed => viewed === episode.id)
   )
 
-  const handleFavorite = useCallback(() => {
-    addFavorite(episode.id)
+  const handleFavorite = useCallback(
+    (event: React.SyntheticEvent) => {
+      event.stopPropagation()
 
-    setIsFavorite(!isFavorite)
-  }, [addFavorite, episode.id, isFavorite])
+      addFavorite(episode.id)
 
-  const handleUnFavorite = useCallback(() => {
-    removeFavorite(episode.id)
+      setIsFavorite(!isFavorite)
+    },
+    [addFavorite, episode.id, isFavorite]
+  )
 
-    setIsFavorite(!isFavorite)
-  }, [removeFavorite, episode.id, isFavorite])
+  const handleUnFavorite = useCallback(
+    (event: React.SyntheticEvent) => {
+      event.stopPropagation()
 
-  const handleViewed = useCallback(() => {
-    addViewed(episode.id)
+      removeFavorite(episode.id)
 
-    setIsViewed(!isViewed)
-  }, [addViewed, episode.id, isViewed])
+      setIsFavorite(!isFavorite)
+    },
+    [removeFavorite, episode.id, isFavorite]
+  )
 
-  const handleUnViewed = useCallback(() => {
-    removeViewed(episode.id)
+  const handleViewed = useCallback(
+    (event: React.SyntheticEvent) => {
+      event.stopPropagation()
 
-    setIsViewed(!isViewed)
-  }, [removeViewed, episode.id, isViewed])
+      addViewed(episode.id)
+
+      setIsViewed(!isViewed)
+    },
+    [addViewed, episode.id, isViewed]
+  )
+
+  const handleUnViewed = useCallback(
+    (event: React.SyntheticEvent) => {
+      event.stopPropagation()
+
+      removeViewed(episode.id)
+
+      setIsViewed(!isViewed)
+    },
+    [removeViewed, episode.id, isViewed]
+  )
 
   return (
     <S.Container>
-      <S.ViewedInputWrapper>
+      <S.ViewedInputWrapper onClick={isViewed ? handleUnViewed : handleViewed}>
         <input
           type="checkbox"
           id="viewed"
           checked={isViewed}
-          onClick={isViewed ? handleUnViewed : handleViewed}
+          onChange={() => {}}
         />
-        <label htmlFor="viewed">Visto</label>
+        <span>Visto</span>
       </S.ViewedInputWrapper>
 
       <S.FavoriteButton
