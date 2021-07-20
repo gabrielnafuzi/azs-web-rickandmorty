@@ -1,7 +1,9 @@
+export type Status = 'alive' | 'dead' | 'unknown'
+
 export type Character = {
-  id: number
+  id: string
   name: string
-  status: string
+  status: Status
   species: string
   image: string
 }

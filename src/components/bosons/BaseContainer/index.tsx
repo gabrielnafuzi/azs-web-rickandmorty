@@ -6,6 +6,6 @@ type Props = {
   children: ReactNode
 }
 
-export const Container = ({ children, ...rest }: Props) => {
+export const BaseContainer = ({ children, ...rest }: Props) => {
   return <S.Container {...rest}>{children}</S.Container>
 }

@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
+  width: 100%;
   height: 100%;
   box-shadow: var(--shadow);
   border-radius: var(--roundness);
@@ -29,7 +30,7 @@ export const Container = styled.div`
     transform: scale(1.01);
   }
 
-  @media (min-width: 30rem) {
+  @media (min-width: 32rem) {
     img {
       width: 36rem;
     }

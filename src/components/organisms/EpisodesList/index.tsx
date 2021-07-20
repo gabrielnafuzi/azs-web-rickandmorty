@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { Container } from '@/components/bosons/Container'
+import { BaseContainer } from '@/components/bosons/BaseContainer'
 import { BaseCard } from '@/components/molecules/BaseCard'
 import { CardsGrid } from '@/components/bosons/CardsGrid'
 import { EpisodeInfos } from '@/components/molecules/EpisodeInfos'
@@ -31,7 +31,7 @@ export const EpisodesList = () => {
   if (isLoading) return <Spinner />
 
   return (
-    <Container>
+    <BaseContainer>
       <div style={{ marginTop: '4rem' }}>
         <CardsGrid>
           {episodes.length
@@ -48,6 +48,6 @@ export const EpisodesList = () => {
             : null}
         </CardsGrid>
       </div>
-    </Container>
+    </BaseContainer>
   )
 }

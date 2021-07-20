@@ -9,7 +9,7 @@ export const GlobalStyles = createGlobalStyle`
     --green: #00BFA5;
     --alive-status: #55CC44;
     --dead-status: #D63D2E;
-    --unknow-status: #FF9800;
+    --unknown-status: #FF9800;
     --background: #fff;
     --placeholder-color: #BEC7D5;
     --shadow: 0px 2px 11px rgba(0, 0, 0, 0.2);

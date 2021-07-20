@@ -6,7 +6,7 @@ export const Container = styled.div`
   align-items: center;
   gap: 3rem 1rem;
 
-  @media (min-width: 60rem) {
+  @media (min-width: 64rem) {
     grid-template-columns: repeat(2, 1fr);
   }
 `
