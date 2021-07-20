@@ -7,8 +7,9 @@ import React, {
 } from 'react'
 
 import { client } from '@/graphql/client'
-import type { Episode, Info } from '@/types'
 import { GET_EPISODES } from '@/graphql/queries'
+
+import type { Episode, Info } from '@/types'
 
 type EpisodesContextData = {
   episodes: Episode[]

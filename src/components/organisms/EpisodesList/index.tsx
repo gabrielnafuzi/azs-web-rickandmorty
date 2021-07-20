@@ -31,7 +31,7 @@ export const EpisodesList = () => {
                   imgSrc={getRandomCharacterImage(episode)}
                   key={episode.id}>
                   <EpisodeInfos episode={episode} />
-                  <EpisodeActions />
+                  <EpisodeActions episode={episode} />
                 </BaseCard>
               ))
             : null}
