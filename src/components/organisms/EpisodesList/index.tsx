@@ -24,7 +24,7 @@ export const EpisodesList = () => {
     return episode.characters[index].image
   }
 
-  const handleNavigateToEpisode = (episodeId: number) => {
+  const handleNavigateToEpisode = (episodeId: number | string) => {
     history.push(`/episodes/${episodeId}`)
   }
 

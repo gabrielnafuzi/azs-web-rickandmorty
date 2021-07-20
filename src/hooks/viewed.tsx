@@ -10,9 +10,9 @@ import React, {
 import Cookies from 'js-cookie'
 
 type ViewedsContextData = {
-  vieweds: number[]
-  addViewed: (viewedId: number) => void
-  removeViewed: (viewedId: number) => void
+  vieweds: Array<string | number>
+  addViewed: (viewedId: string | number) => void
+  removeViewed: (viewedId: string | number) => void
 }
 
 type ViewedsProviderProps = {
@@ -24,7 +24,7 @@ const cookieName = '@azs-rickandmorty:vieweds'
 export const ViewedsContext = createContext({} as ViewedsContextData)
 
 const ViewedsProvider = ({ children }: ViewedsProviderProps) => {
-  const [vieweds, setVieweds] = useState<number[]>([])
+  const [vieweds, setVieweds] = useState<Array<string | number>>([])
 
   useEffect(() => {
     const viewedsInStorage = Cookies.getJSON(cookieName)
@@ -33,7 +33,7 @@ const ViewedsProvider = ({ children }: ViewedsProviderProps) => {
   }, [])
 
   const addViewed = useCallback(
-    (viewedId: number) => {
+    (viewedId: string | number) => {
       const viewedIdAlreadyExists = vieweds.find(viewed => viewed === viewedId)
 
       if (viewedIdAlreadyExists) return
@@ -48,7 +48,7 @@ const ViewedsProvider = ({ children }: ViewedsProviderProps) => {
   )
 
   const removeViewed = useCallback(
-    (viewedId: number) => {
+    (viewedId: string | number) => {
       const newVieweds = vieweds.filter(viewed => viewed !== viewedId)
 
       setVieweds(newVieweds)

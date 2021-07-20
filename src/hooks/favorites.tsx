@@ -10,9 +10,9 @@ import React, {
 import Cookies from 'js-cookie'
 
 type FavoritesContextData = {
-  favorites: number[]
-  addFavorite: (favoriteId: number) => void
-  removeFavorite: (favoriteId: number) => void
+  favorites: Array<string | number>
+  addFavorite: (favoriteId: number | string) => void
+  removeFavorite: (favoriteId: number | string) => void
 }
 
 type FavoritesProviderProps = {
@@ -24,7 +24,7 @@ const cookieName = '@azs-rickandmorty:favorites'
 export const FavoritesContext = createContext({} as FavoritesContextData)
 
 const FavoritesProvider = ({ children }: FavoritesProviderProps) => {
-  const [favorites, setFavorites] = useState<number[]>([])
+  const [favorites, setFavorites] = useState<Array<string | number>>([])
 
   useEffect(() => {
     const favoritesInStorage = Cookies.getJSON(cookieName)
@@ -33,7 +33,7 @@ const FavoritesProvider = ({ children }: FavoritesProviderProps) => {
   }, [])
 
   const addFavorite = useCallback(
-    (favoriteId: number) => {
+    (favoriteId: number | string) => {
       const favoriteIdAlreadyExists = favorites.find(
         favorite => favorite === favoriteId
       )
@@ -50,7 +50,7 @@ const FavoritesProvider = ({ children }: FavoritesProviderProps) => {
   )
 
   const removeFavorite = useCallback(
-    (favoriteId: number) => {
+    (favoriteId: number | string) => {
       const newFavorites = favorites.filter(favorite => favorite !== favoriteId)
 
       setFavorites(newFavorites)
