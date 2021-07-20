@@ -6,11 +6,22 @@ import React, {
   useContext,
   useCallback
 } from 'react'
-
 import Cookies from 'js-cookie'
+
+import { client } from '@/graphql/client'
+import { GET_EPISODES_BY_IDS } from '@/graphql/queries/getEpisodesByIds'
+
+import type { Episode } from '@/types'
+
+type GetEpisodesByIdsResponse = {
+  episodesByIds: Episode[]
+}
 
 type FavoritesContextData = {
   favorites: Array<string | number>
+  favoritesWithData: Episode[]
+  isLoading: boolean
+  getFavoritesWithData: () => Promise<void>
   addFavorite: (favoriteId: number | string) => void
   removeFavorite: (favoriteId: number | string) => void
 }
@@ -25,6 +36,28 @@ export const FavoritesContext = createContext({} as FavoritesContextData)
 
 const FavoritesProvider = ({ children }: FavoritesProviderProps) => {
   const [favorites, setFavorites] = useState<Array<string | number>>([])
+  const [favoritesWithData, setFavoritesWithData] = useState([] as Episode[])
+  const [isLoading, setIsLoading] = useState(true)
+
+  const getFavoritesWithData = useCallback(async () => {
+    try {
+      setIsLoading(true)
+      const favoritesInStorage = Cookies.getJSON(cookieName)
+
+      const { episodesByIds } = await client.request<GetEpisodesByIdsResponse>(
+        GET_EPISODES_BY_IDS,
+        {
+          ids: favoritesInStorage
+        }
+      )
+
+      setFavoritesWithData(episodesByIds)
+    } catch (e) {
+      throw new Error(e)
+    } finally {
+      setIsLoading(false)
+    }
+  }, [favorites])
 
   useEffect(() => {
     const favoritesInStorage = Cookies.getJSON(cookieName)
@@ -62,7 +95,14 @@ const FavoritesProvider = ({ children }: FavoritesProviderProps) => {
 
   return (
     <FavoritesContext.Provider
-      value={{ favorites, addFavorite, removeFavorite }}>
+      value={{
+        favorites,
+        addFavorite,
+        removeFavorite,
+        favoritesWithData,
+        getFavoritesWithData,
+        isLoading
+      }}>
       {children}
     </FavoritesContext.Provider>
   )

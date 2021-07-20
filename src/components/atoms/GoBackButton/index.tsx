@@ -7,7 +7,7 @@ export const GoBackButton = () => {
   const history = useHistory()
 
   const handleGoBack = () => {
-    history.goBack()
+    history.push('/')
   }
 
   return (

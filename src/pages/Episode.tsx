@@ -15,5 +15,3 @@ export const Episode = () => {
 
   return <EpisodeTemplate />
 }
-
-export default Episode
