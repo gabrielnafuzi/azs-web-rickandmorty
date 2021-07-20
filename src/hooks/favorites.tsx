@@ -53,6 +53,8 @@ const FavoritesProvider = ({ children }: FavoritesProviderProps) => {
 
       setFavoritesWithData(episodesByIds)
     } catch (e) {
+      setFavoritesWithData([])
+
       throw new Error(e)
     } finally {
       setIsLoading(false)

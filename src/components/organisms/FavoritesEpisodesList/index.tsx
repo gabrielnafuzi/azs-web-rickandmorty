@@ -33,20 +33,24 @@ export const FavoritesEpisodesList = () => {
   return (
     <BaseContainer>
       <div style={{ marginTop: '4rem' }}>
-        <CardsGrid>
-          {favoritesWithData.length
-            ? favoritesWithData.map(favorite => (
-                <S.EpisodeCard
-                  onClick={() => handleNavigateToEpisode(favorite.id)}
-                  key={favorite.id}>
-                  <BaseCard imgSrc={getRandomCharacterImage(favorite)}>
-                    <EpisodeInfos episode={favorite} />
-                    <EpisodeActions episode={favorite} />
-                  </BaseCard>
-                </S.EpisodeCard>
-              ))
-            : null}
-        </CardsGrid>
+        {favoritesWithData.length ? (
+          <CardsGrid>
+            {favoritesWithData.map(favorite => (
+              <S.EpisodeCard
+                onClick={() => handleNavigateToEpisode(favorite.id)}
+                key={favorite.id}>
+                <BaseCard imgSrc={getRandomCharacterImage(favorite)}>
+                  <EpisodeInfos episode={favorite} />
+                  <EpisodeActions episode={favorite} />
+                </BaseCard>
+              </S.EpisodeCard>
+            ))}
+          </CardsGrid>
+        ) : (
+          <S.NoFavoritesMessage>
+            Nenhum episódio favorito até o momento...
+          </S.NoFavoritesMessage>
+        )}
       </div>
     </BaseContainer>
   )

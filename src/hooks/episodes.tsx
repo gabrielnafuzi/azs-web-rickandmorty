@@ -50,6 +50,8 @@ const EpisodesProvider = ({ children }: EpisodesProviderProps) => {
 
       setEpisodes(episodes.results)
     } catch (e) {
+      setEpisodes([])
+
       throw new Error(e)
     } finally {
       setIsLoading(false)
@@ -70,6 +72,8 @@ const EpisodesProvider = ({ children }: EpisodesProviderProps) => {
 
       setEpisode(episode)
     } catch (e) {
+      setEpisode({} as Episode)
+
       throw new Error(e)
     } finally {
       setIsSingleLoading(false)

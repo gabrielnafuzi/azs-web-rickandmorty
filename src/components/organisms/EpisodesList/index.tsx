@@ -33,20 +33,24 @@ export const EpisodesList = () => {
   return (
     <BaseContainer>
       <div style={{ marginTop: '4rem' }}>
-        <CardsGrid>
-          {episodes.length
-            ? episodes.map(episode => (
-                <S.EpisodeCard
-                  onClick={() => handleNavigateToEpisode(episode.id)}
-                  key={episode.id}>
-                  <BaseCard imgSrc={getRandomCharacterImage(episode)}>
-                    <EpisodeInfos episode={episode} />
-                    <EpisodeActions episode={episode} />
-                  </BaseCard>
-                </S.EpisodeCard>
-              ))
-            : null}
-        </CardsGrid>
+        {episodes.length ? (
+          <CardsGrid>
+            {episodes.map(episode => (
+              <S.EpisodeCard
+                onClick={() => handleNavigateToEpisode(episode.id)}
+                key={episode.id}>
+                <BaseCard imgSrc={getRandomCharacterImage(episode)}>
+                  <EpisodeInfos episode={episode} />
+                  <EpisodeActions episode={episode} />
+                </BaseCard>
+              </S.EpisodeCard>
+            ))}
+          </CardsGrid>
+        ) : (
+          <S.NoEpisodesMessage>
+            Nenhum episódio encontrado...
+          </S.NoEpisodesMessage>
+        )}
       </div>
     </BaseContainer>
   )
