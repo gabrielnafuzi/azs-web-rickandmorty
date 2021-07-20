@@ -1,7 +1,19 @@
 import React from 'react'
 
+import { Routes } from '@/routes'
+import { GlobalStyles } from '@/styles/GlobalStyle'
+import { EpisodesProvider } from '@/hooks/episodes'
+
 const App = () => {
-  return <div className="App">AZS Rick and morty</div>
+  return (
+    <>
+      <EpisodesProvider>
+        <Routes />
+      </EpisodesProvider>
+
+      <GlobalStyles />
+    </>
+  )
 }
 
 export default App
